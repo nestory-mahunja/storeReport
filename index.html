@@ -10,7 +10,16 @@
   <style>
     #spn{cursor: pointer ;background-color: transparent;border-radius: 50%;height: 10px;width: 10px;display: inline-block;position: relative;}
 
-    #dcscLogo{animation:spin 8s linear infinite;position: absolute; width:70px;height:70px; border-radius: 50%;right: 4em;top: 1em; }
+    #dcscLogo{
+      animation:spin 8s linear infinite;
+      position: fixed;
+      width:70px;
+      height:70px;
+      border-radius: 50%;
+      right: 4rem;
+      top: 1rem;
+      z-index: 9999;
+    }
 @keyframes spin{
       from{transform:rotateY(0deg)}
       to{transform:rotateY(360deg)}
@@ -20,9 +29,63 @@
 
     #dcsttLogo{display: inline-block; width: 50PX; height: 50PX;position: absolute;left: 44em;top: 1.7em;}
    
-    #relodImg:hover{transform: scale(1.3);background-color: rgb(235, 230, 225);}
-    #relodImg{cursor: pointer; width: 30PX; height: 30PX;position: absolute;right: 13em;top: 2em;}
+    #relodImg:hover{transform: scale(1.3);background-color: rgb(235, 230, 225);}    
+    #relodImg{
+      cursor: pointer;
+      width: 30px;
+      height: 30px;
+      position: fixed;
+      right: 13rem;
+      top: 1.7em;
+      z-index: 9999;
+    }
+
+    /* Unfilter button styled like an image/icon */
+    #unfilterBtn{
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      position: fixed;
+      right: 8.8rem;
+      top: 1.55em;
+      z-index: 9999;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:50%;
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 4px;
+      background-color: #0d6efd; /* Bootstrap primary */
+      color: #fff !important;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.35);
+      transition: transform .12s ease, background-color .12s ease;
+      font-size: 18px;
+    }
+    #unfilterBtn:hover{transform: scale(1.12);background-color: #0b5ed7;}
+    #unfilterBtn i{color: #fff;}
+
+
+    /* Adjust positions on small screens */
+    @media (max-width: 808px) {
+      #dcscLogo {
+        right: 0rem;
+        top: 1.7em;
+        width: 60px;
+        height: 60px;
+      }
+      #relodImg {
+        right: 0rem;
+        top: 1rem;
+      }
+      #unfilterBtn {
+        right: 2.2rem;
+        top: 1rem;
+      }
+    }
+
     .dropdown-menu { max-height: 200px; overflow-y: auto; }
+    .dropdown-search-li { padding: .25rem .5rem; }
+    .dropdown-search-input { width: 100%; box-sizing: border-box; }
     th { vertical-align: middle; }
     #cc { position: relative; top: 4px; }
     #tbody1 td { padding-top: 0%; padding-bottom: 0%; height: fit-content; vertical-align: middle; text-align: center; }
@@ -30,7 +93,8 @@
  
   /* Prevent FULL NAME column from wrapping and expanding row height */
   
-  #myTable td:nth-child(6){
+  /* FULL NAME column */
+  #myTable td:nth-child(6) {
     max-width: 14rem;
     white-space: nowrap;
     overflow: hidden;
@@ -39,7 +103,7 @@
     text-align: left;
   }
 
-  #myTable td:nth-child(9)
+   #myTable td:nth-child(9)
    {
     max-width: 4rem;
     white-space: nowrap;
@@ -49,6 +113,24 @@
     text-align: left;
   }
 
+  /* DATE column: show ellipsis when space is limited */
+  #myTable thead th:nth-child(2),
+  #myTable td:nth-child(2),
+  #myTable thead th:nth-child(14),
+  #myTable td:nth-child(14) {
+    max-width: 7rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+    text-align: center;
+  }
+
+  .table-black td {
+  background-color: #0f1724; /* row background (example: dark blue/gray) */
+  color: #e8eef8;            /* row text color */
+}
+
   </style>
 </head>
 <body>
@@ -56,7 +138,7 @@
 
 
 <div class="table-responsive" id="cont" style="margin-left: 5%;width:fit-content;">
-  <h5>STORE REPORT</h5>
+  <h5>CL_STORE REPORT</h5>
 <div class="d-flex gap-3 mb-2" style="width: fit-content;">
   <div class="dropdown">
     <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">ID#</button>
@@ -103,16 +185,17 @@
 
   
 </div>
-<div class="mb-1">
+
   
 
   <input readonly style=" width:fit-content;" type="text" id="posterInput" class="form-control mb-0" placeholder="Enter poster name">
-
+  <div style="position: fixed;" class="mb-1">
   <img onclick="location.reload()" id="relodImg" src="imgs/refresh2.png" alt="relodImg">
+  <button id="unfilterBtn" title="Clear filters" class="btn btn-outline-secondary ms-2" type="button"><i class="fa-solid fa-filter-circle-xmark fa-lg"></i></button>
    <img id="dcscLogo" src="imgs/dcscLogo.png" alt="DCSClogo">
 </div>
 <div style="max-height: 32em;overflow: scroll;" id="tablewrapper">
-  <table id="myTable" class="table table-dark table-striped table-bordered mt-0">
+  <table id="myTable" class="table table-black table-striped table-bordered mt-0">
     <thead class="table-dark " style="text-align: center;">
       <tr>
         <th>SNo</th>
@@ -176,7 +259,7 @@
         <div  class="mb-3">
           <label for="modLOC" class="form-label">Terminal</label>
           <select style="width: 8em;" class="form-control order border-primary" id="modLOC">
-            <option value="">Select Location</option>
+            
             <option value="B/TERMINAL" style="font-style: italic;">B/TERMINAL</option>
             <option value="MCCL" style="font-style: italic;">MCCL</option>
             <option value="KISARAWE" style="font-style: italic;">KISARAWE</option>
@@ -189,7 +272,7 @@
         <div class="mb-3">
           <label for="modPPE" class="form-label">PPE TYPE</label>
           <select style="width: 8em;" class="form-control order border-primary" id="modPPE">
-            <option value="">Select PPE Type</option>
+            
             <option value="Helmet">Helmet</option>
             <option value="Overall">Overall</option>
             <option value="Trs&Coat">Trs&Coat</option>
@@ -220,7 +303,7 @@
          <div  class="mb-3">
           <label for="modSTAT" class="form-label">Status</label>
            <select class="form-control order border-primary" id="modSTAT">
-            <option value="">Select Status</option>
+           
             <option value="Debt" style="font-style: italic;">Debt</option>
             <option value="Returned" style="font-style: italic;">Returned</option>
             
@@ -258,8 +341,8 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
-  import { getDatabase, ref, update, onValue, child, get, set, remove, push } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-database.js";
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
+  import { getDatabase, ref, update, onValue, child, get, set, remove, push } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-database.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyAP495Bl7sl2QPpU_oND2Xp0E8hysINkpY",
@@ -334,7 +417,7 @@
     let td6 = document.createElement('td');
     let td7 = document.createElement('td');
     let td8 = document.createElement('td');
-   let td9 = document.createElement('td');
+    let td9 = document.createElement('td');
 td9.textContent = Label;
 
 // Wait until rendered, then attach tooltip only if text is truncated
@@ -346,6 +429,7 @@ requestAnimationFrame(() => {
     new bootstrap.Tooltip(td9);
   }
 });
+
     let td10 = document.createElement('td');
     let td11 = document.createElement('td');
     let td12 = document.createElement('td');
@@ -369,7 +453,7 @@ td4.className = "d-none";
     td7.textContent = PPE_type;
 
     td8.textContent = Quantitty;
-    td9.textContent = Label; 
+    td9.textContent = Label;
     td10.textContent = Locationn;
     td11.textContent = jobb;
     td12.textContent = Status;
@@ -405,8 +489,6 @@ td4.className = "d-none";
     td16.append(EditButton, DelButton);
     trow.append(td1, td2, td3, td4, td5, td6, td7, td8, td9, td10, td11, td12, td13, td14, td15, td16);
     tbody1.appendChild(trow);
-    //
- 
   }
 
   const AddAllRecords = () => {
@@ -443,7 +525,22 @@ function getUniqueValues(colIndex) {
 
 // Generate checkboxes for a filter dropdown
 function createCheckboxes(values, container) {
-  container.innerHTML="";
+  container.innerHTML = "";
+
+  // Add search input at the top of the dropdown
+  const searchLi = document.createElement('li');
+  searchLi.className = 'dropdown-search-li px-2';
+  const searchInput = document.createElement('input');
+  searchInput.type = 'text';
+  searchInput.className = 'form-control form-control-sm dropdown-search-input';
+  searchInput.placeholder = 'Search...';
+  // prevent dropdown from closing when interacting with the input
+  searchInput.addEventListener('click', e => e.stopPropagation());
+  searchInput.addEventListener('keydown', e => e.stopPropagation());
+  searchInput.addEventListener('keyup', e => e.stopPropagation());
+  searchLi.appendChild(searchInput);
+  container.appendChild(searchLi);
+
   values.forEach(value => {
     const li = document.createElement('li');
     const label = document.createElement('label');
@@ -454,11 +551,32 @@ function createCheckboxes(values, container) {
     checkbox.value = value;
     checkbox.addEventListener('change', filterRows);
 
+    // prevent clicks on the checkbox from closing the dropdown
+    checkbox.addEventListener('click', e => e.stopPropagation());
+
     label.appendChild(checkbox);
     label.append(' ' + value);
     li.appendChild(label);
     container.appendChild(li);
   });
+
+  // Filter list items as user types
+  searchInput.addEventListener('input', function() {
+    const term = this.value.trim().toLowerCase();
+    const items = Array.from(container.querySelectorAll('li')).filter(li => !li.classList.contains('dropdown-search-li'));
+    items.forEach(li => {
+      const text = li.textContent.toLowerCase();
+      li.style.display = text.includes(term) ? '' : 'none';
+    });
+  });
+
+  // Focus search input when dropdown opens
+  const dropdownEl = container.closest('.dropdown');
+  if (dropdownEl) {
+    dropdownEl.addEventListener('shown.bs.dropdown', () => {
+      setTimeout(() => searchInput.focus(), 0);
+    });
+  }
 }
 
 // Initialize filters
@@ -820,6 +938,35 @@ function highlightDebtRows() {
 }
 //////
 
+// Add unfilter button functionality: clears all filter checkboxes and search inputs then reapplies filtering
+const unfilterBtnEl = document.getElementById('unfilterBtn');
+if (unfilterBtnEl) {
+  unfilterBtnEl.addEventListener('click', function() {
+    const filterIds = ['labeltFilter','dateFilter','posterFilter','weekNoFilter','monthNoFilter','FNAMEFilter','PPEFilter','LOCFilter','STATFilter','JOBFilter'];
+    filterIds.forEach(id => {
+      const container = document.getElementById(id);
+      if (!container) return;
+      // uncheck all checkboxes
+      container.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+      // clear search input and show all items
+      const search = container.querySelector('.dropdown-search-input');
+      if (search) {
+        search.value = '';
+        const items = Array.from(container.querySelectorAll('li')).filter(li => !li.classList.contains('dropdown-search-li'));
+        items.forEach(li => li.style.display = '');
+      }
+    });
+    // reapply filters (empty selections => show all rows)
+    // trigger change events on checkboxes so the existing handler runs (filterRows is defined inside dropdown init)
+    filterIds.forEach(fid => {
+      const c = document.getElementById(fid);
+      if (!c) return;
+      const anyCb = c.querySelector('input[type="checkbox"]');
+      if (anyCb) anyCb.dispatchEvent(new Event('change'));
+    });
+  });
+}
+
 let debtNameCells = [];
 let currentDebtIndex = -1;
 
@@ -853,8 +1000,8 @@ document.getElementById("spn").onclick = function() {
 };
 ////
 
-
 </script>
 
 </body>
+
 </html>
