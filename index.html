@@ -12,13 +12,11 @@
 
     #dcscLogo{
       animation:spin 8s linear infinite;
-      position: fixed;
+      
       width:70px;
       height:70px;
       border-radius: 50%;
-      right: 4rem;
-      top: 1rem;
-      z-index: 9999;
+    
     }
 @keyframes spin{
       from{transform:rotateY(0deg)}
@@ -34,10 +32,7 @@
       cursor: pointer;
       width: 30px;
       height: 30px;
-      position: fixed;
-      right: 13rem;
-      top: 1.7em;
-      z-index: 9999;
+      
     }
 
     /* Unfilter button styled like an image/icon */
@@ -45,13 +40,11 @@
       cursor: pointer;
       width: 40px;
       height: 40px;
-      position: fixed;
-      right: 8.8rem;
-      top: 1.55em;
+      
+      
+      
       z-index: 9999;
-      display:flex;
-      align-items:center;
-      justify-content:center;
+      
       border-radius:50%;
       border: 1px solid rgba(255,255,255,0.15);
       padding: 4px;
@@ -68,26 +61,18 @@
     /* Adjust positions on small screens */
     @media (max-width: 808px) {
       #dcscLogo {
-        right: 0rem;
-        top: 1.7em;
         width: 60px;
         height: 60px;
       }
-      #relodImg {
-        right: 0rem;
-        top: 1rem;
-      }
-      #unfilterBtn {
-        right: 2.2rem;
-        top: 1rem;
-      }
+      
+      
     }
 
     .dropdown-menu { max-height: 200px; overflow-y: auto; }
     .dropdown-search-li { padding: .25rem .5rem; }
     .dropdown-search-input { width: 100%; box-sizing: border-box; }
     th { vertical-align: middle; }
-    #cc { position: relative; top: 4px; }
+    #cc { position: relative; top: 0px;}
     #tbody1 td { padding-top: 0%; padding-bottom: 0%; height: fit-content; vertical-align: middle; text-align: center; }
   #QtyCount, #PeopleCount{color: yellow;font-size: larger;} 
  
@@ -131,6 +116,29 @@
   color: #e8eef8;            /* row text color */
 }
 
+  /* C/Center column - header and data cells */
+  #myTable thead th:nth-child(16),
+  #myTable td:nth-child(16) {
+    width: 7em;
+    min-width: 7em;
+  }
+
+  /* Button wrapping in C/Center column */
+  #myTable td:nth-child(16) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #myTable td:nth-child(16) .btn {
+    flex: 0 1 auto;
+    margin: 0.25rem !important;
+    padding: 0.375rem 0.5rem !important;
+    font-size: 0.875rem !important;
+  }
+
   </style>
 </head>
 <body>
@@ -139,7 +147,8 @@
 
 <div class="table-responsive" id="cont" style="margin-left: 5%;width:fit-content;">
   <h5>CL_STORE REPORT</h5>
-<div class="d-flex gap-3 mb-2" style="width: fit-content;">
+  <div style="display:flex; justify-content: space-between; align-items: center; "> 
+<div class="d-flex gap-3 mb-1" style="width: fit-content;">
   <div class="dropdown">
     <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">ID#</button>
     <ul class="dropdown-menu" id="labeltFilter"></ul>
@@ -183,17 +192,26 @@
     <ul class="dropdown-menu" id="STATFilter"></ul>
   </div>
 
-  
+</div>
+
+<div style="display: flex; align-items: center; gap: 1em;"> 
+  <div>
+<img onclick="location.reload()" id="relodImg" src="imgs/refresh2.png" alt="relodImg">
+  </div>
+  <div>
+     <button id="unfilterBtn" title="Clear filters" class="btn btn-outline-secondary ms-2" type="button"><i class="fa-solid fa-filter-circle-xmark fa-lg"></i></button>
+  </div>
+  <div>
+    <img id="dcscLogo" src="imgs/dcscLogo.png" alt="DCSClogo">
+  </div>
+</div>
+
 </div>
 
   
 
   <input readonly style=" width:fit-content;" type="text" id="posterInput" class="form-control mb-0" placeholder="Enter poster name">
-  <div style="position: fixed;" class="mb-1">
-  <img onclick="location.reload()" id="relodImg" src="imgs/refresh2.png" alt="relodImg">
-  <button id="unfilterBtn" title="Clear filters" class="btn btn-outline-secondary ms-2" type="button"><i class="fa-solid fa-filter-circle-xmark fa-lg"></i></button>
-   <img id="dcscLogo" src="imgs/dcscLogo.png" alt="DCSClogo">
-</div>
+ 
 <div style="max-height: 32em;overflow: scroll;" id="tablewrapper">
   <table id="myTable" class="table table-black table-striped table-bordered mt-0">
     <thead class="table-dark " style="text-align: center;">
@@ -213,7 +231,7 @@
         <th>PHONE#</th>
         <th>POSTER</th>
         <th class="d-none">POSTtime</th>
-        <th><span id="cc">C/Center</span> <button class="btn btn-success ms-3" data-bs-toggle="modal" data-bs-target="#actionModal" id="add-0"><i class="fa-solid fa-plus"></i></button></th>
+        <th style="padding-top: 0px;"><span id="cc">C/Center</span> <button class="btn btn-success ms-1" data-bs-toggle="modal" data-bs-target="#actionModal" id="add-0"><i class="fa-solid fa-plus"></i></button></th>
       </tr>
     </thead>
     <tbody id="tbody1"></tbody>
@@ -402,7 +420,7 @@
 
 ////////
 
-  const AddSingleRecord = (dater, ID_NO, Full_Name, PPE_type, poster, timer, Quantitty, Label, Status, Locationn, PhoneNo, jobb ) => {
+  const AddSingleRecord = (dater, ID_NO, Full_Name, PPE_type, poster, timer, Quantitty, Label, Status, Locationn, PhoneNo, jobb, recordKey ) => {
     let trow = document.createElement('tr');
 
 // Calculate Week# and Month
@@ -469,6 +487,39 @@ td4.className = "d-none";
     // Or do something else with td14.textContent
   });
 
+    // Add double-click event to Status cell
+    td12.style.cursor = "pointer";
+    td12.style.userSelect = "none";
+    td12.addEventListener('dblclick', function(e) {
+      e.stopPropagation();
+      const currentStatus = td12.textContent.trim();
+      const newStatus = currentStatus === 'Debt' ? 'Returned' : 'Debt';
+      
+      // Update the cell
+      td12.textContent = newStatus;
+      
+      // Update Firebase
+      const updateRef = ref(db, 'Myset/' + recordKey);
+      update(updateRef, { Status: newStatus }).catch((error) => {
+        console.error("Error updating status:", error);
+        // Revert on error
+        td12.textContent = currentStatus;
+      });
+    });
+
+    // Add mouseover/mouseout event to highlight the row
+    td12.addEventListener('mouseover', function() {
+      trow.style.backgroundColor = 'rgba(13, 110, 253, 0.2)';
+      trow.style.border = '2px solid #0d6efd';
+      trow.style.boxShadow = '0 0 8px rgba(13, 110, 253, 0.4)';
+    });
+
+    td12.addEventListener('mouseout', function() {
+      trow.style.backgroundColor = '';
+      trow.style.border = '';
+      trow.style.boxShadow = '';
+    });
+
     let EditButton = document.createElement("button");
     let DelButton = document.createElement("button");
 
@@ -496,7 +547,7 @@ td4.className = "d-none";
     tbody1.innerText = "";
     dateList.forEach(dates => {
       AddSingleRecord(dates.dater, dates.ID_NO, dates.Full_Name, dates.PPE_type, dates.poster, dates.timer,
-                     dates.Quantitty, dates.Label, dates.Status, dates.Locationn, dates.PhoneNo, dates.jobb);
+                     dates.Quantitty, dates.Label, dates.Status, dates.Locationn, dates.PhoneNo, dates.jobb, dates.key);
     });
   
 
@@ -685,17 +736,24 @@ actionBtn.replaceWith(actionBtn.cloneNode(true));
       actionBtn.innerText = 'Add';
       actionBtn.addEventListener('click', AddData);
 
-      modDate.value = "";
+      // Set current date in d-m-Y format
+      const now = new Date();
+      const day = String(now.getDate()).padStart(2, '0');
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const year = now.getFullYear();
+      const formattedDate = day + '-' + month + '-' + year;
+
+      modDate.value = formattedDate;
       mod_IDNo.value = "";
       mod_FNAME.value = "";
       modPPE.value = "";
       modposter.value = posterInput.value;
       modTimer.value = "";
 
-      modQNTY.value = "";
+      modQNTY.value = "1";
       modLAB.value = "";
-      modSTAT.value = "";
-      modLOC.value = "";
+      modSTAT.value = "Debt";
+      modLOC.value = "B/TERMINAL";
       modPHONE.value = "";
       modJOB.value = "";
     } else if (mode === 'edit') {
