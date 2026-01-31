@@ -6,7 +6,7 @@
   <script>
     // Check authentication on page load
     if (sessionStorage.getItem('isAuthenticated') !== 'true') {
-      window.location.href = 'index.html';
+      window.location.href = 'opening.html';
     }
   </script>
   <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet" />
@@ -158,7 +158,7 @@
 
 <div style="background-color: #f8f9fa; padding: 10px 20px; border-bottom: 2px solid #dee2e6; display: flex; justify-content: space-between; align-items: center;">
   <div style="display: flex; gap: 15px;">
-    <a href="index.html" style="text-decoration: none; color: #0d6efd; font-weight: 600; font-size: 0.95em;" title="Go to Home">
+    <a href="opening.html" style="text-decoration: none; color: #0d6efd; font-weight: 600; font-size: 0.95em;" title="Go to Home">
       <i class="fas fa-home"></i> Home
     </a>
     <a href="storeReport_daily.html" style="text-decoration: none; color: #0d6efd; font-weight: 600; font-size: 0.95em;" title="Switch to Daily Equipment Report">
@@ -172,7 +172,7 @@
 
 <div class="table-responsive" id="cont" style="margin-left: 5%;width:fit-content;">
   <h5 style="margin-top: 3px;">CL_STORE REPORT(LONG RUN)</h5>
-  <div style="display:flex;;gap:3em; justify-content: space-between; align-items: center; "> 
+  <div style="display:flex; justify-content: space-between; align-items: center; "> 
 <div class="d-flex gap-3 mb-1" style="width: fit-content;">
   <div class="dropdown">
     <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">ID#</button>
@@ -221,13 +221,13 @@
 
 <div style="display: flex; align-items: center; gap: 1em;"> 
   <div>
-<img onclick="location.reload()" id="relodImg" src="imgs/refresh2.png" alt="relodImg">
+<img onclick="location.reload()" id="relodImg" src="imgsStore/refresh2.png" alt="relodImg">
   </div>
   <div>
      <button id="unfilterBtn" title="Clear filters" class="btn btn-outline-secondary ms-2" type="button"><i class="fa-solid fa-filter-circle-xmark fa-lg"></i></button>
   </div>
   <div>
-    <img id="dcscLogo" src="imgs/dcscLogo.png" alt="DCSClogo">
+    <img id="dcscLogo" src="imgsStore/dcscLogo.png" alt="DCSClogo">
   </div>
 </div>
 
@@ -317,7 +317,6 @@
           <select style="width: 8em;" class="form-control order border-primary" id="modPPE">
             
             <option value="Helmet">Helmet</option>
-            <option value="Bango">Bango</option>
             <option value="Overall">Overall</option>
             <option value="Trs&Coat">Trs&Coat</option>
             <option value="Gloves">Gloves</option>
@@ -756,7 +755,7 @@ function filterRows() {
       updateTotals();
     } else {
       alert("No user ID found. Please go back to opening page and enter your ID.");
-      window.location.href = 'index.html';
+      window.location.href = 'opening.html';
     }
   });
 

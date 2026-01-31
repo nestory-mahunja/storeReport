@@ -172,7 +172,7 @@
 
 <div class="table-responsive" id="cont" style="margin-left: 5%;width:fit-content;">
   <h5 style="margin-top: 3px;">CL_STORE REPORT (DAILY/KUTWA)</h5>
-  <div style="margin-top: 0px; display:flex;gap:3em; justify-content: space-between; align-items: center; "> 
+  <div style="margin-top: 0px; display:flex; justify-content: space-between; align-items: center; "> 
 <div class="d-flex gap-3 mb-1" style="width: fit-content;">
   <div class="dropdown">
     <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">ID#</button>
@@ -221,13 +221,13 @@
 
 <div style="display: flex; align-items: center; gap: 1em;"> 
   <div>
-<img onclick="location.reload()" id="relodImg" src="imgs/refresh2.png" alt="relodImg">
+<img onclick="location.reload()" id="relodImg" src="imgsStore/refresh2.png" alt="relodImg">
   </div>
   <div>
      <button id="unfilterBtn" title="Clear filters" class="btn btn-outline-secondary ms-2" type="button"><i class="fa-solid fa-filter-circle-xmark fa-lg"></i></button>
   </div>
   <div>
-    <img id="dcscLogo" src="imgs/dcscLogo.png" alt="DCSClogo">
+    <img id="dcscLogo" src="imgsStore/dcscLogo.png" alt="DCSClogo">
   </div>
 </div>
 
@@ -317,7 +317,6 @@
           <select style="width: 8em;" class="form-control order border-primary" id="modPPE">
             
             <option value="Helmet">Helmet</option>
-            <option value="Bango">Bango</option>
             <option value="Overall">Overall</option>
             <option value="Trs&Coat">Trs&Coat</option>
             <option value="Gloves">Gloves</option>
@@ -755,7 +754,7 @@ function filterRows() {
       SelectAllDataRealtime();
       updateTotals();
     } else {
-      alert("No user ID found. Please go back to opening page and enter your ID.");
+      alert("No user ID found. Please go back to index page and enter your ID.");
       window.location.href = 'index.html';
     }
   });
