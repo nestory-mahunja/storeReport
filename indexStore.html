@@ -193,7 +193,7 @@
       const db = getDatabase(app);
 
       function askForId() {
-        const posterId = prompt("Please Enter your passCode:");
+        const posterId = prompt("Enter your ID:");
 
         if (posterId) {
           const idRef = ref(db, 'UserIds/' + posterId);
